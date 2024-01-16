@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/server.js" },
+    { "src": "/marketplace_inventory", "dest": "/server.js" },
+    { "src": "/get_car", "dest": "/server.js" },
+    { "src": "/get_oems", "dest": "/server.js" }
+  ]
+}
