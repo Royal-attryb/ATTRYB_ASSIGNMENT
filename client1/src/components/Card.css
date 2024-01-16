@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+}
+
+button {
+    display: block;
+}
+
+.card {
+    text-align: center;
+    /* border: 2px solid red; */
+    background: rgba(231, 225, 224, 1);
+    border-radius: 10px;
+    margin: 0 2rem 2rem 0;
+    padding: 0;
+}
+
+img {
+    border-radius: 10px 10px 0px 0px;
+    height: 200px;
+    width: 290px; 
+}
+
+.color, .name {
+    margin: 0;
+}
+

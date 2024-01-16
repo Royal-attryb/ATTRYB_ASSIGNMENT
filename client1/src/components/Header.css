@@ -1,0 +1,10 @@
+.header {
+    text-align: center;
+    padding: 2rem;
+}
+
+.header a {
+    text-decoration: none;
+    font-size: 2rem;
+    color: black;
+}

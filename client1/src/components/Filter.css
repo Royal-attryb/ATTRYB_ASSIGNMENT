@@ -1,0 +1,18 @@
+.car-filter {
+    float: left;
+    overflow-wrap: normal;
+    text-wrap: nowrap;
+}
+
+h2 {
+    margin: 0.5rem;
+}
+
+h3 {
+    margin-top: 2rem;
+}
+
+input {
+    margin: 0.5rem 0rem;
+}
+
