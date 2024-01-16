@@ -18,7 +18,7 @@ export default function Homepage() {
   useEffect(() => {
     async function fetchCars() {
       try {
-        const response = await axios.get('https://glorious-tam-moth.cyclic.app/marketplace_inventory', {
+        const response = await axios.get('https://attryb-assignment-aegs.vercel.app/marketplace_inventory', {
           params: {
             color: filter.color,
             maxprice: filter.price[1],
@@ -41,7 +41,7 @@ export default function Homepage() {
   useEffect(() => {
     async function getcar() {
       try {
-        const response = await axios.get('https://glorious-tam-moth.cyclic.app/get_car', {
+        const response = await axios.get('https://attryb-assignment-aegs.vercel.app/get_car', {
           params: {
             car_req: searchbox
           }
