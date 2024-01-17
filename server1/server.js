@@ -59,7 +59,7 @@ app.get('/get_car', async(req, res) => {
     if (req.query.car_req !=='')
     {
     try {
-        await connection.query(`SELECT ALL * FROM marketplace_inventory JOIN oem_specs ON (oem_specs.vehicle_id = marketplace_inventory.vehicle_id) WHERE CONCAT(oem_name, ' ', model_name, ' ', model_year) = "${req.query.car_req}"`, function (error, result, fields) {
+        await connection.query(`SELECT ALL * FROM marketplace_inventory JOIN oem_specs ON (oem_specs.vehicle_id = marketplace_inventory.vehicle_id) WHERE CONCAT(oem_name, ' ', model_name, ' ', model_year) LIKE "%${req.query.car_req}%"`, function (error, result, fields) {
             res.send(result);
         });
     }
