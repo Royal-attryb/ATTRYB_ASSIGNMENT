@@ -14,10 +14,12 @@ export default function Homepage() {
     mileage: [0, 20]
   });
   const [banner, setBanner] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchCars() {
       try {
+        setLoading(true);
         const response = await axios.get('https://attryb-assignment-aegs.vercel.app/marketplace_inventory', {
           params: {
             color: filter.color,
@@ -33,6 +35,10 @@ export default function Homepage() {
       } catch (error) {
         console.error(`Error!!`);
       }
+
+      finally {
+        setLoading(false);
+      }
     }
 
     fetchCars();
@@ -41,6 +47,7 @@ export default function Homepage() {
   useEffect(() => {
     async function getcar() {
       try {
+        setLoading(true);
         const response = await axios.get('https://attryb-assignment-aegs.vercel.app/get_car', {
           params: {
             car_req: searchbox
@@ -50,6 +57,10 @@ export default function Homepage() {
       }
       catch (error) {
         console.log(error);
+      }
+
+      finally {
+        setLoading(false);
       }
     }
     getcar();
@@ -67,9 +78,13 @@ export default function Homepage() {
     setBanner(true);
   }
 
-  const inventory = cars.map((car) => (
+  const inventory = loading ? (
+    <p>Loading....</p>
+  ) : (
+    cars.map((car) => (
     <Card key={car.id} name={`${car.oem_name} ${car.model_name} ${car.model_year}`} price={car.price} color={car.color} mileage={car.mileage}/>
-  ));
+  ))
+  );
   
   return (
     <div className="homepage-wrapper">
