@@ -31,9 +31,13 @@ connection.connect();
 app.get('/marketplace_inventory', async (req, res) => {
         // console.log(req.query);
         try {
-                if (req.query.color === 'All' || !req.query.color)
+                const trueColors = Object.keys(req.query.color).filter(color => req.query.color[color] === 'true');
+                console.log(trueColors.length);
+                console.log(req.query);
+
+                if (trueColors.length===0 && req.query.car_req==="")
                 {
-                    await connection.query(`SELECT ALL * FROM marketplace_inventory JOIN oem_specs ON (oem_specs.vehicle_id = marketplace_inventory.vehicle_id) WHERE (price >= ${req.query.minprice || 0} AND price <= ${req.query.maxprice || 50000}) AND (mileage >= ${req.query.minmileage || 0} AND mileage <= ${req.query.maxmileage || 20});`
+                    await connection.query(`SELECT ALL * FROM marketplace_inventory JOIN oem_specs ON (oem_specs.vehicle_id = marketplace_inventory.vehicle_id) WHERE (price >= ${req.query.minprice || 0} AND price <= ${req.query.maxprice || 50000}) AND (mileage >= ${req.query.minmileage || 0} AND mileage <= ${req.query.maxmileage || 20})`
                     , function (error, results, fields) {
                         // console.log(results);
                         res.send(results);
@@ -42,8 +46,29 @@ app.get('/marketplace_inventory', async (req, res) => {
 
                 else
                 {
-                    await connection.query(`SELECT ALL * FROM marketplace_inventory JOIN oem_specs ON (oem_specs.vehicle_id = marketplace_inventory.vehicle_id) WHERE color="${req.query.color}" AND (price >= ${req.query.minprice || 0} AND price <= ${req.query.maxprice || 50000}) AND (mileage >= ${req.query.minmileage || 0} AND mileage <= ${req.query.maxmileage || 20});`
-                    , function (error, results, fields) {
+                    if (!req.query.car_req) {
+                        sqlquery = `SELECT ALL * FROM marketplace_inventory JOIN oem_specs ON (oem_specs.vehicle_id = marketplace_inventory.vehicle_id) WHERE (price >= ${req.query.minprice || 0} AND price <= ${req.query.maxprice || 50000}) AND (mileage >= ${req.query.minmileage || 0} AND mileage <= ${req.query.maxmileage || 20})`;
+                    }
+                    
+                    else {
+                        sqlquery = `SELECT ALL * FROM marketplace_inventory JOIN oem_specs ON (oem_specs.vehicle_id = marketplace_inventory.vehicle_id) WHERE (price >= ${req.query.minprice || 0} AND price <= ${req.query.maxprice || 50000}) AND (mileage >= ${req.query.minmileage || 0} AND mileage <= ${req.query.maxmileage || 20}) AND CONCAT(oem_name, ' ', model_name, ' ', model_year) LIKE "%${req.query.car_req}%"`;
+                    }
+
+                    // if (trueColors.length !== 0 && (trueColors[0] !== 'All')) {
+                        console.log("hello");
+
+                        const colorConditions = trueColors.map(color => (color === 'All') ? `1` : `color = "${color}"`).join(' OR ');
+                        if (colorConditions)
+                            sqlquery += ` AND (${colorConditions});`;
+                    // }
+
+                    // else {
+                    //     sqlquery != `AND 1;`;
+                    // }
+
+                    console.log(sqlquery);
+                    await connection.query(sqlquery
+                        , function (error, results, fields) {
                         res.send(results);
                     });
                 }
@@ -54,34 +79,34 @@ app.get('/marketplace_inventory', async (req, res) => {
         }
 });
 
-app.get('/get_car', async(req, res) => {
-    // console.log(req.query);
-    if (req.query.car_req !=='')
-    {
-    try {
-        await connection.query(`SELECT ALL * FROM marketplace_inventory JOIN oem_specs ON (oem_specs.vehicle_id = marketplace_inventory.vehicle_id) WHERE CONCAT(oem_name, ' ', model_name, ' ', model_year) LIKE "%${req.query.car_req}%"`, function (error, result, fields) {
-            res.send(result);
-        });
-    }
+// app.get('/get_car', async(req, res) => {
+//     // console.log(req.query);
+//     if (req.query.car_req !=='')
+//     {
+//     try {
+//         await connection.query(`SELECT ALL * FROM marketplace_inventory JOIN oem_specs ON (oem_specs.vehicle_id = marketplace_inventory.vehicle_id) WHERE CONCAT(oem_name, ' ', model_name, ' ', model_year) LIKE "%${req.query.car_req}%"`, function (error, result, fields) {
+//             res.send(result);
+//         });
+//     }
 
-    catch (error) {
-        console.log(error);
-    }
-    }
+//     catch (error) {
+//         console.log(error);
+//     }
+//     }
 
-    else
-    {
-    try {
-        await connection.query(`SELECT ALL * FROM marketplace_inventory JOIN oem_specs ON (oem_specs.vehicle_id = marketplace_inventory.vehicle_id) WHERE 1`, function (error, result, fields) {
-            res.send(result);
-        });
-    }
+//     else
+//     {
+//     try {
+//         await connection.query(`SELECT ALL * FROM marketplace_inventory JOIN oem_specs ON (oem_specs.vehicle_id = marketplace_inventory.vehicle_id) WHERE 1`, function (error, result, fields) {
+//             res.send(result);
+//         });
+//     }
 
-    catch (error) {
-        console.log(error);
-    }
-}
-});
+//     catch (error) {
+//         console.log(error);
+//     }
+// }
+// });
 
 app.get('/get_oems', async (req, res) => {
     await connection.query(`SELECT COUNT(vehicle_id) AS Number_Of_Oems FROM oem_specs`, function (error, result, fields) {

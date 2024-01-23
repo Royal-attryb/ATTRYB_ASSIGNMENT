@@ -1,9 +1,42 @@
-label {
-    margin-left: 1rem;
+* {
+    box-sizing: border-box;
 }
 
-input {
-    border: 1px solid black;
-    margin-left: 1rem;
-    padding: 0.5rem;
+input[id="car"] {
+    /* border: 1px solid black; */
+    padding: 0.8rem;
+    padding-right: 3rem;
+    font-size: 1.2rem;
+}
+
+.search-box {
+    /* border: 1px solid red; */
+    margin: 2rem auto;
+    position: relative;
+}
+
+.clear-button {
+    font-size: 1rem;
+    background: white;
+    border: 0;
+    position: absolute;
+    top: 35%;
+    left: 83%;
+}
+
+@media (max-width: 500px) {
+    input[id="car"] {
+        width: 100%;
+        padding: 0.5rem;
+        padding-right: 3rem;
+    }
+
+    .clear-button {
+        font-size: 1rem;
+        background: white;
+        border: 0;
+        position: absolute;
+        top: 35%;
+        left: 80%;
+    }
 }

@@ -1,14 +1,18 @@
 * {
-    font-family: "Gill Sans", sans-serif;
+    font-family: "VT323", "Open Sans", "Gill Sans", sans-serif;
+    letter-spacing: 2px;
 }
 
 .homepage {
     display: flex;
-  }
+    /* background: linear-gradient(black, grey); */
+    background: black;
+    color: white;
+}
 
 article {
     /* border: 1px solid red; */
-    margin: 1rem;
+    margin: 1.5rem 3rem;
 }
 
 .searchbox {
@@ -16,9 +20,73 @@ article {
 }
 
 .homepage main {
-    display: flex;
-    justify-content: flex-start;
-    flex-flow: row wrap;
+    max-height: calc(100vh - 10rem);
     /* border: 1px solid red; */
-    margin: 1rem;
+    align-self: flex-start;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-auto-columns: minmax(200px, auto); 
+    gap: 30px;
+    /* border: 1px solid red; */
+    margin: 1.5rem auto;
+    padding: 0 0.5rem;
+    overflow-y: scroll;
+    position: relative;
+    top: 0;
+    left: 0;
 }
+
+.cards-page::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background: white;
+}
+
+.cards-page::-webkit-scrollbar
+{
+	width: 8px;
+	background: white;
+    border-radius: 10px;
+}
+
+.cards-page::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background: rgba(0,0,0);
+}
+
+@media (max-width: 500px) {
+    .homepage {
+        flex-direction: column;
+        justify-content: space-around;
+        /* margin: 1.5rem; */
+    }
+
+    article {
+       margin: 0;
+    }
+}
+
+@media (max-width: 320px) {
+    .homepage main {
+        grid-template-columns: repeat(1,1fr);
+    }
+}
+
+@media(min-width: 320px) and (max-width: 500px) {
+    .homepage main {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+/* @media (min-width: 400px) and (max-width: 500px) {
+    .homepage main {
+        align-self: flex-start;
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        grid-auto-columns: minmax(200px, auto); 
+        gap: 30px;
+        /* border: 1px solid red; */
+        /* margin: 2rem auto; */
+    /* }
+}  */
