@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Slider } from '@material-ui/core'; // Assuming you're using Material-UI for the sliders
+import { Slider } from '@mui/material'; 
 import './Filter.css';
 import Search from './Search';
 

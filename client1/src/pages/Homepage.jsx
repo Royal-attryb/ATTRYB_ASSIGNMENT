@@ -48,7 +48,7 @@ export default function Homepage() {
       } finally {
         setTimeout(() => {
           setLoading(false);
-        }, 1000); // Display the loading component for 1 second
+        }, 500); // Display the loading component for 1 second
       }
     }
 

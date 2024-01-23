@@ -10,7 +10,7 @@
     background: rgb(243, 245, 248);
     border-radius: 10px;
     padding: 0;
-    min-width: 200px;
+    min-width: 180px;
     color: black;
 }
 
@@ -55,11 +55,4 @@ img {
     font-size: 1.25rem;
     font-weight: normal;
     margin-right: 3px; 
-}
-
-@media(max-width: 500px) {
-    .card {
-        min-width: 100px;
-        width: 100%;
-    }
 }

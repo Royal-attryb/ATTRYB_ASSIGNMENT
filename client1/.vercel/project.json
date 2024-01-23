@@ -1,15 +1,1 @@
-{
-  "projectId": "prj_TQ7dhPuRr8xmUhEEhxECZWtCY2Lk",
-  "orgId": "team_XcMG5C3F1mzDwsN6YvdULAyr",
-  "settings": {
-    "createdAt": 1706010375219,
-    "framework": "create-react-app",
-    "devCommand": null,
-    "installCommand": null,
-    "buildCommand": null,
-    "outputDirectory": null,
-    "rootDirectory": null,
-    "directoryListing": false,
-    "nodeVersion": "18.x"
-  }
-}
+{"orgId":"team_XcMG5C3F1mzDwsN6YvdULAyr","projectId":"prj_oqaI9SMrsGNp52peKinu51kA2V37"}

@@ -7,11 +7,13 @@ input[id="car"] {
     padding: 0.8rem;
     padding-right: 3rem;
     font-size: 1.2rem;
+    width: 100%;
+    min-width: 200px;
 }
 
 .search-box {
     /* border: 1px solid red; */
-    margin: 2rem auto;
+    /* margin: 2rem auto; */
     position: relative;
 }
 
