@@ -1,12 +1,12 @@
 .header {
     text-align: center;
-    padding: 2rem;
+    padding: 1.5rem;
     position: relative;
 }
 
 .header a {
     text-decoration: none;
     font-size: 3rem;
-    color: green;
+    color: black;
     letter-spacing: 7px;
 }
