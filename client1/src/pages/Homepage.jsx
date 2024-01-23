@@ -30,7 +30,7 @@ export default function Homepage() {
           setFirstload(false);
 
         setLoading(true);
-        const response = await axios.get('http://localhost:3000/marketplace_inventory', {  
+        const response = await axios.get('https://attryb-assignment-aegs.vercel.app/marketplace_inventory', {  
           params: {
             color: filter.color,
             maxprice: filter.price[1],
