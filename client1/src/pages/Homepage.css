@@ -37,6 +37,10 @@ article {
     left: 0;
 }
 
+.empty-page {
+    text-align: center;
+    font-size: 2rem;
+}
 /* .cards-page::-webkit-scrollbar-track
 {
 	border-radius: 10px;

@@ -41,7 +41,7 @@ export default function Homepage() {
           car_req: search || searchbox
         }
       });
-
+      
       setCars(response.data);
       // console.log(response.data);
     } catch (error) {
@@ -119,7 +119,14 @@ export default function Homepage() {
           <Filter onFilterChange={handleFilterChange} onSearchChange={handleSearchChange} onResetClick={handleFilterChange} suggestions={suggestions} onEnterPress={(key) => { if (key === 'Enter') {fetchCars();}}} suggestionClicked={handleSuggestionClick} onSuggestionHover={(val) => {setSuggestion(val);}} />
           {/* {console.log(filter)}; */}
         </article>
-        <main className='cards-page'>{!loading && marketplace}</main> {/* Display marketplace when loading is false */}
+        {!loading && cars.length === 0 && (
+          <div>
+            <p className='empty-page'>No cars found.</p>
+          </div>
+        )}
+        {!loading && cars.length > 0 && (
+          <main className='cards-page'>{!loading && marketplace}</main> 
+        )}
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ export default function Filter({ onFilterChange, onSearchChange, onResetClick, s
     filter.mileage
   ];
 
-  console.log(rangeFilters);
+  // console.log(rangeFilters);
   const [suggestionSearch, setSuggestionSearch] = useState("");
   const [searchClicked, setSearchClicked] = useState(false);
   const [suggestionClick, setSuggestionClick] = useState(false);
@@ -106,7 +106,7 @@ export default function Filter({ onFilterChange, onSearchChange, onResetClick, s
 
       <div className='filters'>
         <h3 className='filter-headings'>Price<em> (Rs.)</em></h3>
-        <p className='slider-values'><span className='filter1'>{filter.price[0]}</span><span className='filter2'>{filter.price[1]}</span></p>
+        <p className='slider-values'><span className='filter1'>{new Intl.NumberFormat().format(filter.price[0])}</span><span className='filter2'>{new Intl.NumberFormat().format(filter.price[1])}</span></p>
 
         <Slider
           value={filter.price}

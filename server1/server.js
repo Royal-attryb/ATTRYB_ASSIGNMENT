@@ -4,7 +4,6 @@ const port = 3000;
 const cors = require('cors'); 
 var mysql = require('mysql');
 const levenshtein = require('js-levenshtein');
-const deviation = require('chapman-length-deviation');
 app.use(cors("*"));
 
 app.get('/',(req,res)=> {

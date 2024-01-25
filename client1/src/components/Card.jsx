@@ -15,7 +15,7 @@ export default function Card ({name, price, color, mileage}) {
                 <span className='divider'>|</span>
                 <li className='mileage'>{mileage} km/l</li>
               </ul>
-              <h2 className='price'><span className='rupee'>&#8377;</span>{price}</h2>
+              <h2 className='price'><span className='rupee'>&#8377;</span>{new Intl.NumberFormat().format(price)}</h2>
             </div>
         </div>
   )
