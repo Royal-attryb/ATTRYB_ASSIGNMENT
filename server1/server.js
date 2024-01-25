@@ -28,6 +28,7 @@ var connection = mysql.createConnection({
 });
 connection.connect();
 
+
 app.get('/marketplace_inventory', async (req, res) => {
         // console.log(req.query);
         try {
