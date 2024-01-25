@@ -16,6 +16,7 @@
     text-align: center;
     margin: 2rem 0 0.5rem 0;
     text-transform: uppercase;
+    color: white;
 }
 
 label {
@@ -34,6 +35,11 @@ label {
 em {
     font-weight: normal;
     font-size: 0.8em;
+}
+
+.slider-values-wrapper {
+    display: flex;
+    justify-content: space-between;
 }
 
 .slider-values {

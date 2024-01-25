@@ -2,6 +2,7 @@
     text-align: center;
     padding: 1.5rem;
     position: relative;
+    min-width: 280px;
 }
 
 .header a {

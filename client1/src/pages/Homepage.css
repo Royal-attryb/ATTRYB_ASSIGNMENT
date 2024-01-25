@@ -8,6 +8,7 @@
     /* background: linear-gradient(black, grey); */
     background: black;
     color: white;
+    min-width: 280px;
 }
 
 article {
@@ -76,7 +77,7 @@ article {
     }    
 }
 
-@media (min-width: 745px) and (max-width: 951px) {
+@media (min-width: 745px) and (max-width: 952px) {
     .homepage main {
         grid-template-columns: repeat(2,1fr);
     }

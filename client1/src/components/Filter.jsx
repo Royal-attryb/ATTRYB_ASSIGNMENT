@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Slider } from '@mui/material'; 
 import './Filter.css';
 import Search from './Search';
+import Suggestions from './Suggestions';
 
-export default function Filter({ onFilterChange, onSearchChange, onResetClick }) {
+export default function Filter({ onFilterChange, onSearchChange, onResetClick, suggestions, onEnterPress, suggestionClicked, onSuggestionHover }) {
   const [filter, setFilter] = useState({
     color: {
       'Red': false,
@@ -16,6 +17,16 @@ export default function Filter({ onFilterChange, onSearchChange, onResetClick })
     price: [0, 50000],
     mileage: [0, 20]
   });
+
+  const rangeFilters = [
+    filter.price,
+    filter.mileage
+  ];
+
+  console.log(rangeFilters);
+  const [suggestionSearch, setSuggestionSearch] = useState("");
+  const [searchClicked, setSearchClicked] = useState(false);
+  const [suggestionClick, setSuggestionClick] = useState(false);
 
   const handleColorChange = (event) => {
     const newColorArray = {...filter.color, [event.target.value] : !(filter.color[event.target.value])};
@@ -46,18 +57,30 @@ export default function Filter({ onFilterChange, onSearchChange, onResetClick })
     });
   };
 
-
   function handleSearchChange(newCar) {
     onSearchChange(newCar);
   }
 
+  function handleEnterPress(key) {
+    onEnterPress(key);
+  }
+
+  function handleHover(value) {
+    setSuggestionSearch(value);
+    onSuggestionHover(value);
+  }
+
+  const displaySuggestions = ((searchClicked)) ? ( <Suggestions suggestions={suggestions} onHover={handleHover} suggestionClicked={(val) => {suggestionClicked(val); setSuggestionClick(false); setSearchClicked(false); }} /> ) : null;
+  // console.log("Suggestion clicked", suggestionClick);  
+  // console.log("Search clicked", searchClicked);
   const colors = ['Red', 'Blue', 'Green', 'Black', 'White', 'All'];
   const initialCheckedColors = Object.fromEntries(colors.map(color => [color, false]));
   const [checkedColors, setCheckedColors] = useState(initialCheckedColors);
 
   return (
     <div className="car-filter">
-      <Search onSearchChange={handleSearchChange}/>
+      <Search onSearchChange={handleSearchChange} onEnterPress={handleEnterPress} suggestionSearch={suggestionSearch} searchClick={(val) => setSearchClicked(val)} />
+      {displaySuggestions}
       <h2 className='filter-mainheading'>Car Filters</h2>
       <div className='filters'>
         <h3 className='filter-headings'>Color</h3>
@@ -76,6 +99,10 @@ export default function Filter({ onFilterChange, onSearchChange, onResetClick })
           </div>
         ))}
       </div>
+      
+      {/* {rangeFilters.map((row, rowIndex) => (
+        <SliderComp filter={row} heading="Price" handlePriceChange={handlePriceChange} handleMileageChange={handleMileageChange}/>
+      ))}; */}
 
       <div className='filters'>
         <h3 className='filter-headings'>Price<em> (Rs.)</em></h3>
