@@ -3,11 +3,14 @@ import img from "../assets/car3.png";
 import "./Card.css";
 // import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react';
 
-export default function Card ({name, price, color, mileage}) {
+export default function Card ({name, price, color, mileage, image}) {
 
   return (
         <div className="card">
-            <img src={img} alt="Car"/>
+          <div className='img-wrapper'>
+          <img src={image} alt="Car" className='car-image'/>
+          </div>
+            
             <div className='content'>
               <h3 className="name">{name}</h3>
               <ul className='color-mileage'>

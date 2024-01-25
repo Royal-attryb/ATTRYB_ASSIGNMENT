@@ -107,8 +107,10 @@ export default function Homepage() {
   function handleSuggestionClick (val) {
     if(val) { setSearchbox(suggestion); fetchCars(suggestion);}
   }
+
+  // console.log(cars[3].images);
   const marketplace = cars.map((car) => (
-    <Card key={car.id} name={`${car.oem_name} ${car.model_name} ${car.model_year}`} price={car.price} color={car.color} mileage={car.mileage}/>
+    <Card key={car.id} name={`${car.oem_name} ${car.model_name} ${car.model_year}`} price={car.price} color={car.color} mileage={car.mileage} image={car.images}/>
   ));
 
   return (
