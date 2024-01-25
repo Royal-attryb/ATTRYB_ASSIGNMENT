@@ -70,7 +70,7 @@ export default function Homepage() {
   useEffect(() => {
     async function fetchSuggestions() {
       try {
-          const response = await axios.get('http://localhost:3000/search_suggestions', {
+          const response = await axios.get('https://attryb-assignment-aegs.vercel.app/search_suggestions', {
           params: {
             car_req: searchbox
           }
