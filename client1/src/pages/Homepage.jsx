@@ -23,35 +23,53 @@ export default function Homepage() {
   const [loading, setLoading] = useState(false);
   const [firstload, setFirstload] = useState(true);
 
-  useEffect(() => {
-    async function fetchCars() {
-      try {
-        if (firstload)
-          setFirstload(false);
+  async function fetchCars() {  //Fetch Cars API
+    try {
+      if (firstload)
+        setFirstload(false);
 
-        setLoading(true);
-        const response = await axios.get('https://attryb-assignment-aegs.vercel.app/marketplace_inventory', {  
-          params: {
-            color: filter.color,
-            maxprice: filter.price[1],
-            minprice: filter.price[0],
-            minmileage: filter.mileage[0],
-            maxmileage: filter.mileage[1],
-            car_req: searchbox
-          }
-        });
+      setLoading(true);
+      const response = await axios.get('http://localhost:3000/marketplace_inventory', {  
+        params: {
+          color: filter.color,
+          maxprice: filter.price[1],
+          minprice: filter.price[0],
+          minmileage: filter.mileage[0],
+          maxmileage: filter.mileage[1],
+          car_req: searchbox
+        }
+      });
 
-        setCars(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error(`Error!!`);
-      } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 500); // Display the loading component for 1 second
-      }
+      setCars(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(`Error!!`);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 500); // Display the loading component for 1 second
+    }
+  }
+
+  async function fetchSuggestions() {  //Suggestions API
+    try {
+        const response = await axios.get('https://attryb-assignment-aegs.vercel.app/search_suggestions', {
+        params: {
+          car_req: searchbox
+        }
+      });
+
+      // setSuggestions(response.data.map(suggestion => {
+      //     return suggestion.candidate;
+      // }));
     }
 
+    catch(error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
     if (firstload) //no debounce on first load
     {
       fetchCars();
@@ -65,6 +83,7 @@ export default function Homepage() {
     return () => clearTimeout(timerId); // Cleanup on unmount or when searchbox changes
   }, [filter, searchbox]);
 
+  
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
   };
@@ -82,7 +101,7 @@ export default function Homepage() {
       {loading && <Loading />} {/* Display Loading component when loading is true */}
       <div className="homepage">
         <article>
-          <Filter onFilterChange={handleFilterChange} onSearchChange={handleSearchChange} onResetClick={handleFilterChange}/>
+          <Filter onFilterChange={handleFilterChange} onSearchChange={handleSearchChange} onResetClick={handleFilterChange} />
           {/* {console.log(filter)}; */}
         </article>
         <main className='cards-page'>{!loading && marketplace}</main> {/* Display marketplace when loading is false */}

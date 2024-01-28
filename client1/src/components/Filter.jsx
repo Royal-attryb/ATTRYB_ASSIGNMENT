@@ -11,11 +11,12 @@ export default function Filter({ onFilterChange, onSearchChange, onResetClick })
       'Green': false,
       'Black': false,
       'White': false,
-      'All': false,
+      'All': true,
     },
     price: [0, 50000],
     mileage: [0, 20]
   });
+  const [reset, setReset] = useState(false);
 
   const handleColorChange = (event) => {
     const newColorArray = {...filter.color, [event.target.value] : !(filter.color[event.target.value])};
@@ -34,18 +35,37 @@ export default function Filter({ onFilterChange, onSearchChange, onResetClick })
   };
 
   const handleResetClick = () => {
-    setFilter({
-      color: [''],
-      price: [0, 50000],
-      mileage: [0, 20]
-    });
+    onSearchChange('');
     onResetClick({
-      color: [''],
+      color: {
+        'Red': false,
+        'Blue': false,
+        'Green': false,
+        'Black': false,
+        'White': false,
+        'All': true,
+      },
       price: [0, 50000],
       mileage: [0, 20]
     });
-  };
+    setFilter({
+      color: {
+        'Red': false,
+        'Blue': false,
+        'Green': false,
+        'Black': false,
+        'White': false,
+        'All': true,
+      },
+      price: [0, 50000],
+      mileage: [0, 20]
+    });
 
+    setReset(true);
+    setTimeout(() => {  //reset the searchbox
+      setReset(false);
+    }, 100);
+  };
 
   function handleSearchChange(newCar) {
     onSearchChange(newCar);
@@ -57,7 +77,7 @@ export default function Filter({ onFilterChange, onSearchChange, onResetClick })
 
   return (
     <div className="car-filter">
-      <Search onSearchChange={handleSearchChange}/>
+      <Search onSearchChange={handleSearchChange} reset={reset}/>
       <h2 className='filter-mainheading'>Car Filters</h2>
       <div className='filters'>
         <h3 className='filter-headings'>Color</h3>
