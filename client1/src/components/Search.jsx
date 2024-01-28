@@ -28,6 +28,7 @@ export default function Search({ onSearchChange, onEnterPress, suggestionSearch,
   function handleSearchClick() {
     setSearchClicked(true);
     searchClick(true);
+    // setCar('');
   }
 
   return (

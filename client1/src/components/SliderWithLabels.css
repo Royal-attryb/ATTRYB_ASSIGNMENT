@@ -1,0 +1,67 @@
+.car-filter {
+    font-size: 1.5rem;
+    width: 100%;
+    position: sticky;
+    top: 10px;
+    /* overflow-y: scroll; */
+    /* height: 90vh; */
+}
+
+.filter-mainheading {
+    margin: 1rem 0;
+}
+
+.filter-headings {
+    font-size: 2rem;
+    text-align: center;
+    margin: 2rem 0 0.5rem 0;
+    text-transform: uppercase;
+    color: white;
+}
+
+label {
+    margin-left: 2rem;
+    font-size: 1.5rem;
+}
+
+/* input {
+    margin: 0.5rem auto;
+} */
+
+.colors {
+    margin-bottom: 0.5rem;
+}
+
+em {
+    font-weight: normal;
+    font-size: 0.8em;
+}
+
+.slider-values-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.slider-values {
+    font-style: italic;
+    color: grey;
+    display: flex;
+    justify-content: space-between;
+}
+
+.resetbutton {
+    padding: 0.4rem 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #2272FF;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 500px) {
+    .car-filter {
+        width: 90%;
+        margin: auto;
+        /* border: 2px solid green; */
+    }
+}

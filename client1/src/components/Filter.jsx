@@ -3,6 +3,7 @@ import { Slider } from '@mui/material';
 import './Filter.css';
 import Search from './Search';
 import Suggestions from './Suggestions';
+import SliderWithLabels from './SliderWithLabels';
 
 export default function Filter({ onFilterChange, onSearchChange, onResetClick, suggestions, onEnterPress, suggestionClicked, onSuggestionHover }) {
   const [filter, setFilter] = useState({
@@ -18,12 +19,9 @@ export default function Filter({ onFilterChange, onSearchChange, onResetClick, s
     mileage: [0, 20]
   });
 
-  const rangeFilters = [
-    filter.price,
-    filter.mileage
-  ];
-
-  // console.log(rangeFilters);
+  const rangeFilters = [{"Price":filter.price, "min":0, "max":50000}, {"Mileage":filter.mileage, "min":0, "max": 20}];
+  // console.log(rangeFilters[0].Price);
+  // console.log("filter", rangeFilters[0]);
   const [suggestionSearch, setSuggestionSearch] = useState("");
   const [searchClicked, setSearchClicked] = useState(false);
   const [suggestionClick, setSuggestionClick] = useState(false);
@@ -70,13 +68,15 @@ export default function Filter({ onFilterChange, onSearchChange, onResetClick, s
     onSuggestionHover(value);
   }
 
+  const handleFunctions = [handlePriceChange, handleMileageChange];
+
   const displaySuggestions = ((searchClicked)) ? ( <Suggestions suggestions={suggestions} onHover={handleHover} suggestionClicked={(val) => {suggestionClicked(val); setSuggestionClick(false); setSearchClicked(false); }} /> ) : null;
   // console.log("Suggestion clicked", suggestionClick);  
   // console.log("Search clicked", searchClicked);
   const colors = ['Red', 'Blue', 'Green', 'Black', 'White', 'All'];
   const initialCheckedColors = Object.fromEntries(colors.map(color => [color, false]));
   const [checkedColors, setCheckedColors] = useState(initialCheckedColors);
-
+  
   return (
     <div className="car-filter">
       <Search onSearchChange={handleSearchChange} onEnterPress={handleEnterPress} suggestionSearch={suggestionSearch} searchClick={(val) => setSearchClicked(val)} />
@@ -104,7 +104,8 @@ export default function Filter({ onFilterChange, onSearchChange, onResetClick, s
         <SliderComp filter={row} heading="Price" handlePriceChange={handlePriceChange} handleMileageChange={handleMileageChange}/>
       ))}; */}
 
-      <div className='filters'>
+      {rangeFilters.map((filter, index) => <SliderWithLabels filter={filter} handleFunction={handleFunctions[index]}/>)}
+      {/* <div className='filters'>
         <h3 className='filter-headings'>Price<em> (Rs.)</em></h3>
         <p className='slider-values'><span className='filter1'>{new Intl.NumberFormat().format(filter.price[0])}</span><span className='filter2'>{new Intl.NumberFormat().format(filter.price[1])}</span></p>
 
@@ -127,7 +128,7 @@ export default function Filter({ onFilterChange, onSearchChange, onResetClick, s
           onChange={handleMileageChange}
           // valueLabelDisplay="auto"
         />
-      </div>
+      </div> */}
       <button className="resetbutton" onClick={handleResetClick}>
           RESET
       </button>

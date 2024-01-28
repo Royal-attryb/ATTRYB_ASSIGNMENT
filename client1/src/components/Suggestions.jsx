@@ -8,13 +8,8 @@ export default function Suggestions({ suggestions, onHover, suggestionClicked })
     function handleSuggestionClicked (event) {
         setClick(true);
         suggestionClicked(true);
-    }
-
-    if (click) {
         setClick(false);
-        suggestionClicked(false);
     }
-
     return (
         <div className="suggestions-wrapper">
             <ul className="suggestions-list">
