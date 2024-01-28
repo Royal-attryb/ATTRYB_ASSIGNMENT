@@ -3,7 +3,7 @@ import { Slider } from '@mui/material';
 import './Filter.css';
 import Search from './Search';
 
-export default function Filter({ onFilterChange, onSearchChange, onResetClick }) {
+export default function Filter({ onFilterChange, onSearchChange, onResetClick, suggestions, onSubmit }) {
   const [filter, setFilter] = useState({
     color: {
       'Red': false,
@@ -77,7 +77,7 @@ export default function Filter({ onFilterChange, onSearchChange, onResetClick })
 
   return (
     <div className="car-filter">
-      <Search onSearchChange={handleSearchChange} reset={reset}/>
+      <Search onSearchChange={handleSearchChange} reset={reset} suggestions={suggestions} onSubmit={onSubmit}/>
       <h2 className='filter-mainheading'>Car Filters</h2>
       <div className='filters'>
         <h3 className='filter-headings'>Color</h3>

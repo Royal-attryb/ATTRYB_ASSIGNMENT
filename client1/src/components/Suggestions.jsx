@@ -1,8 +1,8 @@
 import './Suggestions.css';
 import { useState } from 'react';
 
-export default function Suggestions() {
-    const suggestions = [];
+export default function Suggestions({suggestions}) {
+    console.log(suggestions);
     return (
         <div className="suggestions-wrapper">
             <ul className="suggestions-list">

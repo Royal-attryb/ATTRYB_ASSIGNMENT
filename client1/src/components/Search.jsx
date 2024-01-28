@@ -3,7 +3,7 @@ import './Search.css';
 import img from '../assets/remove.png';
 import Suggestions from './Suggestions.jsx';
 
-export default function Search({ onSearchChange, reset }) {
+export default function Search({ onSearchChange, reset, suggestions, onSubmit }) {
   const [car, setCar] = useState('');
 
   useEffect(() => {
@@ -14,6 +14,7 @@ export default function Search({ onSearchChange, reset }) {
 
   function handleChange(event) {
     const value = event.target.value;
+    onSearchChange(value);
     setCar(value);
   }
 
@@ -21,6 +22,7 @@ export default function Search({ onSearchChange, reset }) {
     event.preventDefault();
     console.log(car);
     onSearchChange(car);
+    onSubmit(true);
   }
 
   function handleClear() {
@@ -46,7 +48,7 @@ export default function Search({ onSearchChange, reset }) {
           </button>
         )}
       </div>
-      <Suggestions />
+      <Suggestions suggestions={suggestions}/>
     </>
   );
 }

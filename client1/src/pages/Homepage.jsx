@@ -22,6 +22,7 @@ export default function Homepage() {
   });
   const [loading, setLoading] = useState(false);
   const [firstload, setFirstload] = useState(true);
+  const [suggestions, setSuggestions] = useState([]);
 
   async function fetchCars() {  //Fetch Cars API
     try {
@@ -41,7 +42,7 @@ export default function Homepage() {
       });
 
       setCars(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error(`Error!!`);
     } finally {
@@ -53,21 +54,30 @@ export default function Homepage() {
 
   async function fetchSuggestions() {  //Suggestions API
     try {
-        const response = await axios.get('https://attryb-assignment-aegs.vercel.app/search_suggestions', {
+        const response = await axios.get('http://localhost:3000/search_suggestions', {
         params: {
           car_req: searchbox
         }
       });
 
-      // setSuggestions(response.data.map(suggestion => {
-      //     return suggestion.candidate;
-      // }));
+      setSuggestions(response.data.map(suggestion => {
+          return suggestion.candidate;
+      }));
     }
 
     catch(error) {
       console.log(error);
     }
   }
+
+  useEffect(() => {
+    // const timerId = setTimeout(() => {
+      fetchSuggestions();
+    // }, 500);
+
+    // return () => clearTimeout(timerId);
+  }, [searchbox]);
+  
 
   useEffect(() => {
     if (firstload) //no debounce on first load
@@ -81,12 +91,22 @@ export default function Homepage() {
     }, 500); 
 
     return () => clearTimeout(timerId); // Cleanup on unmount or when searchbox changes
-  }, [filter, searchbox]);
+  }, [filter]);
 
   
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
   };
+
+  function handleSubmit(val) {
+    if (val) {
+      const timerId = setTimeout(() => {  //debounce except on first load
+        fetchCars();
+      }, 500); 
+  
+      return () => clearTimeout(timerId); // Cleanup on unmount or when searchbox changes
+    }
+  }
 
   function handleSearchChange(newCar) {
     setSearchbox(newCar);
@@ -101,7 +121,7 @@ export default function Homepage() {
       {loading && <Loading />} {/* Display Loading component when loading is true */}
       <div className="homepage">
         <article>
-          <Filter onFilterChange={handleFilterChange} onSearchChange={handleSearchChange} onResetClick={handleFilterChange} />
+          <Filter onFilterChange={handleFilterChange} onSearchChange={handleSearchChange} onResetClick={handleFilterChange} suggestions={suggestions} onSubmit={handleSubmit}/>
           {/* {console.log(filter)}; */}
         </article>
         <main className='cards-page'>{!loading && marketplace}</main> {/* Display marketplace when loading is false */}

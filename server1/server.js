@@ -24,7 +24,8 @@ var connection = mysql.createConnection({
     user     : 'root',
     password : '-Ee21bHfabB-eDdeD62FFC5C4dbagcDH',
     database : 'railway',
-    port     : '42321'
+    port     : '42321',
+    ssl: false
 });
 connection.connect();
 
